@@ -1,5 +1,21 @@
-import { HomeContainer } from './styles'
+import { PostCard } from './components/PostCard'
+import { Profile } from './components/Profile'
+import { Search } from './components/Search'
+import { HomeContainer, PostsContainer } from './styles'
 
 export function Home() {
-  return <HomeContainer>Home</HomeContainer>
+  return (
+    <HomeContainer>
+      <Profile />
+      <Search />
+      <PostsContainer>
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </PostsContainer>
+    </HomeContainer>
+  )
 }

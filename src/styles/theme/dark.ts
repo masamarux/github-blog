@@ -1,4 +1,4 @@
-export const defaultTheme = {
+export const darkTheme = {
   'blue-400': '#3294F8',
 
   'dark-blue-1000': '#040F1A',
@@ -12,5 +12,5 @@ export const defaultTheme = {
   'dark-blue-200': '#C4D4E3',
   'dark-blue-100': '#E7EDF4',
 
-  'background-color': '#1C2F41',
+  'background-color': '#071422',
 } as const
