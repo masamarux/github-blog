@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   faArrowUpRightFromSquare,
   faChevronLeft,
@@ -13,9 +14,9 @@ export function PostHeader() {
   return (
     <PostHeaderContainer>
       <div>
-        <a href="">
+        <Link to="/">
           <FontAwesomeIcon icon={faChevronLeft} /> VOLTAR
-        </a>
+        </Link>
         <ExternalLink href="https://github.com/Masamarux">
           VER NO GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         </ExternalLink>

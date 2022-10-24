@@ -8,4 +8,11 @@ export const PostContainer = styled.div`
 
 export const MarkdownContainer = styled(ReactMarkdown)`
   color: ${(props) => props.theme['dark-blue-300']};
+  white-space: pre-wrap;
+
+  code {
+    line-height: 4rem;
+    padding: 1rem;
+    background-color: ${(props) => props.theme['dark-blue-100']};
+  }
 `

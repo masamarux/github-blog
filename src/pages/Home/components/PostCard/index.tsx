@@ -1,8 +1,12 @@
 import { PostCardContainer } from './styles'
 
-export function PostCard() {
+interface PostCardProps {
+  onClick?: () => void
+}
+
+export function PostCard({ onClick }: PostCardProps) {
   return (
-    <PostCardContainer>
+    <PostCardContainer onClick={onClick}>
       <div>
         <strong>JavaScript data types and data structures</strong>
         <time dateTime="2022-10-20T21:00:15.141Z">Há 1 dia</time>
