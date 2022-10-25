@@ -20,6 +20,8 @@ export function Issue() {
     (state) => state.changeIsBackgroundDark,
   )
 
+  SyntaxHighlighter.registerLanguage('javascript', javascript)
+
   const getIssue = useCallback(async () => {
     if (issueId) {
       const response = await getIssueData({
