@@ -62,5 +62,18 @@ export const MarkdownContainer = styled(ReactMarkdown)`
     .hljs-number {
       color: ${(props) => props.theme['green-400']};
     }
+
+    .hljs-title.function_ {
+      color: ${(props) => props.theme['purple-300']};
+    }
+
+    .hljs-title.class_,
+    .hljs-built_in {
+      color: ${(props) => props.theme['magenta-300']};
+    }
+
+    .hljs-property {
+      color: ${(props) => props.theme['blue-400']};
+    }
   }
 `

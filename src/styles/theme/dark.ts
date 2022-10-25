@@ -6,6 +6,10 @@ export const darkTheme = {
 
   'gray-300': '#4F6173',
 
+  'magenta-300': '#ff6666',
+
+  'purple-300': '#9999ff',
+
   'dark-blue-1000': '#040F1A',
   'dark-blue-900': '#071422',
   'dark-blue-800': '#0B1B2B',
