@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBuilding,
@@ -7,25 +6,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-import {
-  ProfileContainer,
-  ProfileDataContainer,
-  ProfileInputContainer,
-} from './styles'
+import { ProfileContainer, ProfileDataContainer } from './styles'
 import { ExternalLink } from '../../../../components/ExternalLink'
-import { useContext, useState } from 'react'
-import { Input } from '../../../../components/Input'
+import { useContext } from 'react'
 import { GithubContext } from '../../../../contexts/GithubContext'
 
 export function Profile() {
-  const [username, setUsername] = useState('')
-  const { user, getUserData, resetUserData } = useContext(GithubContext)
+  const { user } = useContext(GithubContext)
 
-  async function handleGetUserData() {
-    await getUserData(username)
-  }
-
-  return !isEmpty(user) ? (
+  return (
     <ProfileContainer>
       <img src={user && user?.avatar_url} alt="" />
 
@@ -41,40 +30,22 @@ export function Profile() {
 
         <footer>
           <div>
-            <div>
-              <FontAwesomeIcon icon={faGithub} />
-              <span>{user?.login}</span>
-            </div>
-            {user?.company && (
-              <div>
-                <FontAwesomeIcon icon={faBuilding} />
-                <span>{user.company}</span>
-              </div>
-            )}
-
-            <div>
-              <FontAwesomeIcon icon={faUserGroup} />
-              <span>{user?.followers} seguidores</span>
-            </div>
+            <FontAwesomeIcon icon={faGithub} />
+            <span>{user?.login}</span>
           </div>
+          {user?.company && (
+            <div>
+              <FontAwesomeIcon icon={faBuilding} />
+              <span>{user.company}</span>
+            </div>
+          )}
 
-          <button onClick={resetUserData}>MUDAR PERFIL</button>
+          <div>
+            <FontAwesomeIcon icon={faUserGroup} />
+            <span>{user?.followers} seguidores</span>
+          </div>
         </footer>
       </ProfileDataContainer>
     </ProfileContainer>
-  ) : (
-    <ProfileInputContainer>
-      <strong>Informe seu perfil no github</strong>
-      <div>
-        <Input.Root>
-          <Input.Input
-            placeholder="Escreva o usuário aqui"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </Input.Root>
-        <button onClick={handleGetUserData}>BUSCAR</button>
-      </div>
-    </ProfileInputContainer>
   )
 }

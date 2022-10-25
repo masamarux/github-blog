@@ -13,18 +13,25 @@ export const HeaderContainer = styled.header`
   align-items: center;
   padding-top: 4rem;
 
-  img {
-    width: 2.8125rem;
-    height: 2.5rem;
-    z-index: 888;
-  }
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
 
-  h1 {
-    font-family: 'Coda', cursive;
-    font-weight: 400;
-    font-size: 1.5rem;
-    color: ${(props) => props.theme['blue-400']};
+    img {
+      width: 2.8125rem;
+      height: 2.5rem;
+      z-index: 888;
+    }
 
-    margin-top: 1.5rem;
+    h1 {
+      font-family: 'Coda', cursive;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: ${(props) => props.theme['blue-400']};
+
+      margin-top: 1.5rem;
+    }
   }
 `

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import ReactMarkdown from 'react-markdown'
 
 export const PostCardContainer = styled.article`
   cursor: pointer;
@@ -11,7 +12,7 @@ export const PostCardContainer = styled.article`
   padding: 2rem;
   border-radius: 10px;
 
-  div {
+  & > div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -26,14 +27,25 @@ export const PostCardContainer = styled.article`
     time {
       white-space: nowrap;
     }
+  }
 
-    p {
-      color: ${(props) => props.theme['dark-blue-300']};
-      font-weight: 400;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.125rem;
+  }
+
+  p {
+    color: ${(props) => props.theme['dark-blue-300']};
+    font-weight: 400;
   }
 
   &:hover {
     border: 2px solid ${(props) => props.theme['dark-blue-500']};
   }
 `
+
+export const MarkdownContainer = styled(ReactMarkdown)``

@@ -92,27 +92,23 @@ export const ProfileDataContainer = styled.div`
 
   footer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 1.5rem;
+
     & > div {
       display: flex;
-      flex-direction: row;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 0.5rem;
 
-      & > div {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+      svg {
+        color: ${(props) => props.theme['dark-blue-500']};
+        font-size: 1.125rem;
+      }
 
-        svg {
-          color: ${(props) => props.theme['dark-blue-500']};
-          font-size: 1.125rem;
-        }
-
-        span {
-          font-size: 1rem;
-          font-weight: 400;
-          color: ${(props) => props.theme['dark-blue-200']};
-        }
+      span {
+        font-size: 1rem;
+        font-weight: 400;
+        color: ${(props) => props.theme['dark-blue-200']};
       }
     }
 

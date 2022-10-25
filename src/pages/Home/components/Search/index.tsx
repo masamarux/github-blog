@@ -1,33 +1,57 @@
-import { KeyboardEvent } from 'react'
+import { KeyboardEvent, useContext } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { Input } from '../../../../components/Input'
-import { getRepositoryIssues } from '../../../../libs/octokit'
+import { GithubContext } from '../../../../contexts/GithubContext'
 import { SearchContainer } from './styles'
 
-export function Search() {
-  async function getIssues() {
-    const response = await getRepositoryIssues({
-      owner: 'facebook',
-      repo: 'react',
-    })
+const searchFormSchema = z.object({
+  query: z.string().min(0),
+})
 
-    console.log(response)
+type SearchFormInputs = z.infer<typeof searchFormSchema>
+
+export function Search() {
+  const { handleSubmit, control } = useForm<SearchFormInputs>({
+    resolver: zodResolver(searchFormSchema),
+  })
+  const { searchIssues, issues } = useContext(GithubContext)
+
+  async function handleSearchIssues(data: SearchFormInputs) {
+    await searchIssues(data.query)
   }
 
   async function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
-      await getIssues()
+      await handleSubmit(handleSearchIssues)()
     }
   }
 
   return (
-    <SearchContainer>
+    <SearchContainer onSubmit={handleSubmit(handleSearchIssues)}>
       <div>
         <strong>Publicações</strong>
-        <span>6 publicações</span>
+        <span>{issues ? issues.total_count : 0} publicações</span>
       </div>
-      <Input.Root>
-        <Input.Input placeholder="Busca conteúdo" onKeyDown={handleKeyDown} />
-      </Input.Root>
+      <Controller
+        name="query"
+        control={control}
+        render={({ field: { onChange, name, value, onBlur, ref } }) => (
+          <Input.Root ref={ref}>
+            <Input.Input
+              type="text"
+              placeholder="Busca conteúdo"
+              ref={ref}
+              name={name}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              onKeyDown={handleKeyDown}
+            />
+          </Input.Root>
+        )}
+      />
     </SearchContainer>
   )
 }

@@ -1,5 +1,9 @@
-import { createContext, ReactNode, useState } from 'react'
-import { getUser } from '../libs/octokit'
+import { createContext, ReactNode, useEffect, useState } from 'react'
+import {
+  getUser,
+  getSearchRepositoryIssues,
+  IssuesProps,
+} from '../libs/octokit'
 
 interface UserProps {
   login: string
@@ -39,8 +43,10 @@ interface UserProps {
 interface GithubContextProps {
   user: UserProps
   repository: string
-  getUserData: (username: string) => void
+  issues: IssuesProps
+  getUserData: () => void
   resetUserData: () => void
+  searchIssues: (query: string) => void
 }
 
 export const GithubContext = createContext<GithubContextProps>(
@@ -53,11 +59,11 @@ interface GithubProviderProps {
 
 export function GithubProvider({ children }: GithubProviderProps) {
   const [user, setUser] = useState<UserProps>({} as UserProps)
+  const [issues, setIssues] = useState<IssuesProps>({} as IssuesProps)
   const [repository, setRepository] = useState('')
-  const [issues, setIssues] = useState([])
 
-  async function getUserData(username: string) {
-    const userData = await getUser(username)
+  async function getUserData() {
+    const userData = await getUser(import.meta.env.VITE_GITHUB_USERNAME)
 
     userData?.data && setUser(userData.data)
   }
@@ -66,13 +72,30 @@ export function GithubProvider({ children }: GithubProviderProps) {
     setUser({} as UserProps)
   }
 
+  async function searchIssues(query: string) {
+    const issuesSearchedData = await getSearchRepositoryIssues({
+      owner: import.meta.env.VITE_GITHUB_USERNAME,
+      repo: import.meta.env.VITE_GITHUB_REPO,
+      query,
+    })
+
+    issuesSearchedData?.data && setIssues(issuesSearchedData.data)
+  }
+
+  useEffect(() => {
+    getUserData()
+    searchIssues('')
+  }, [])
+
   return (
     <GithubContext.Provider
       value={{
         user,
         repository,
+        issues,
         getUserData,
         resetUserData,
+        searchIssues,
       }}
     >
       {children}

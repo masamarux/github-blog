@@ -1,21 +1,30 @@
-import { PostCardContainer } from './styles'
+import { PostCardContainer, MarkdownContainer } from './styles'
+import ReactMarkdown from 'react-markdown'
+import { formatDate } from '../../../../utils/formatters'
 
 interface PostCardProps {
   onClick?: () => void
+  title: string
+  body?: string
+  createdAt: string
 }
 
-export function PostCard({ onClick }: PostCardProps) {
+export function PostCard({ onClick, title, body, createdAt }: PostCardProps) {
   return (
     <PostCardContainer onClick={onClick}>
       <div>
-        <strong>JavaScript data types and data structures</strong>
-        <time dateTime="2022-10-20T21:00:15.141Z">Há 1 dia</time>
+        <strong>
+          {title.length >= 45 ? `${title.substring(0, 45)}...` : title}
+        </strong>
+        <time dateTime={createdAt}>{formatDate(createdAt)}</time>
       </div>
-      <p>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in...
-      </p>
+      <ReactMarkdown>
+        {body
+          ? body.length >= 250
+            ? `${body.substring(0, 250)}...`
+            : body
+          : '...'}
+      </ReactMarkdown>
     </PostCardContainer>
   )
 }

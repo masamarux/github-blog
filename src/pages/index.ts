@@ -1,3 +1,3 @@
 export { Home } from './Home'
-export { Post } from './Post'
+export { Issue } from './Issue'
 export { NotFound } from './NotFound'

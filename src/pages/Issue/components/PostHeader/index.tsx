@@ -9,30 +9,46 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ExternalLink } from '../../../../components/ExternalLink'
 import { PostHeaderContainer } from './styles'
+import { formatDate } from '../../../../utils/formatters'
 
-export function PostHeader() {
+interface PostHeaderProps {
+  title: string
+  username?: string
+  createdAt: string
+  comments: number
+  htmlUrl: string
+}
+
+export function PostHeader({
+  title,
+  username,
+  createdAt,
+  comments,
+  htmlUrl,
+}: PostHeaderProps) {
   return (
     <PostHeaderContainer>
       <div>
         <Link to="/">
           <FontAwesomeIcon icon={faChevronLeft} /> VOLTAR
         </Link>
-        <ExternalLink href="https://github.com/Masamarux">
+        <ExternalLink href={htmlUrl}>
           VER NO GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         </ExternalLink>
       </div>
 
-      <strong>JavaScript data types and data structures</strong>
+      <strong>{title}</strong>
 
       <footer>
         <div>
-          <FontAwesomeIcon icon={faGithub} /> masamarux
+          <FontAwesomeIcon icon={faGithub} /> {username || '--'}
         </div>
         <div>
-          <FontAwesomeIcon icon={faCalendar} /> Há 1 dia
+          <FontAwesomeIcon icon={faCalendar} />{' '}
+          {createdAt && formatDate(createdAt)}
         </div>
         <div>
-          <FontAwesomeIcon icon={faComment} /> 5 comentários
+          <FontAwesomeIcon icon={faComment} /> {comments} comentários
         </div>
       </footer>
     </PostHeaderContainer>
