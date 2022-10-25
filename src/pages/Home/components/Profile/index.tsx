@@ -1,3 +1,4 @@
+import { useContextSelector } from 'use-context-selector'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBuilding,
@@ -8,11 +9,10 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import { ProfileContainer, ProfileDataContainer } from './styles'
 import { ExternalLink } from '../../../../components/ExternalLink'
-import { useContext } from 'react'
 import { GithubContext } from '../../../../contexts/GithubContext'
 
 export function Profile() {
-  const { user } = useContext(GithubContext)
+  const user = useContextSelector(GithubContext, (state) => state.user)
 
   return (
     <ProfileContainer>

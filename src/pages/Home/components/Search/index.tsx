@@ -1,4 +1,5 @@
-import { KeyboardEvent, useContext } from 'react'
+import { useContextSelector } from 'use-context-selector'
+import { KeyboardEvent, useCallback } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -16,17 +17,27 @@ export function Search() {
   const { handleSubmit, control } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   })
-  const { searchIssues, issues } = useContext(GithubContext)
+  const searchIssues = useContextSelector(
+    GithubContext,
+    (state) => state.searchIssues,
+  )
+  const issues = useContextSelector(GithubContext, (state) => state.issues)
 
-  async function handleSearchIssues(data: SearchFormInputs) {
-    await searchIssues(data.query)
-  }
+  const handleSearchIssues = useCallback(
+    async (data: SearchFormInputs) => {
+      await searchIssues(data.query)
+    },
+    [searchIssues],
+  )
 
-  async function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      await handleSubmit(handleSearchIssues)()
-    }
-  }
+  const handleKeyDown = useCallback(
+    async (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        await handleSubmit(handleSearchIssues)()
+      }
+    },
+    [handleSubmit, handleSearchIssues],
+  )
 
   return (
     <SearchContainer onSubmit={handleSubmit(handleSearchIssues)}>
@@ -35,6 +46,7 @@ export function Search() {
         <span>{issues ? issues.total_count : 0} publicações</span>
       </div>
       <Controller
+        defaultValue=" "
         name="query"
         control={control}
         render={({ field: { onChange, name, value, onBlur, ref } }) => (

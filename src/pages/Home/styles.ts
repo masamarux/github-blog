@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const HomeContainer = styled.div`
   max-width: 54rem;
   margin: 0 auto;
+  padding-bottom: 2rem;
 `
 
 export const PostsContainer = styled.div`

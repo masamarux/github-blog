@@ -4,6 +4,7 @@ import styled from 'styled-components'
 export const PostContainer = styled.div`
   max-width: 54rem;
   margin: 0 auto;
+  padding-bottom: 2rem;
 `
 
 export const MarkdownContainer = styled(ReactMarkdown)`
@@ -41,7 +42,7 @@ export const MarkdownContainer = styled(ReactMarkdown)`
   }
 
   & > p > code {
-    padding: 1rem;
+    padding: 0 0.25rem;
     background-color: ${(props) => props.theme['dark-blue-700']};
     border-radius: 2px;
   }

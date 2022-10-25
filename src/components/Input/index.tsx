@@ -4,7 +4,6 @@ import { InputInputContainer, InputRootContainer } from './styles'
 interface InputRootProps {
   children: ReactNode
 }
-
 export type RefInputRoot = HTMLDivElement
 
 const InputRoot = forwardRef<RefInputRoot, InputRootProps>(function InputRoot(
@@ -14,12 +13,7 @@ const InputRoot = forwardRef<RefInputRoot, InputRootProps>(function InputRoot(
   return <InputRootContainer ref={ref}>{props.children}</InputRootContainer>
 })
 
-// function InputRoot({ children }: InputRootProps) {
-//   return <InputRootContainer>{children}</InputRootContainer>
-// }
-
 type InputInputProps = InputHTMLAttributes<HTMLInputElement>
-
 export type RefInputInput = HTMLInputElement
 
 const InputInput = forwardRef<RefInputInput, InputInputProps>(

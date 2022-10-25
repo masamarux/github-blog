@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext } from 'use-context-selector'
+import { ReactNode, useCallback, useState } from 'react'
 
 interface SiteContextProps {
   isBackgroundDark: boolean
@@ -16,9 +17,9 @@ interface SiteProviderProps {
 export function SiteProvider({ children }: SiteProviderProps) {
   const [isBackgroundDark, setIsBackgroundDark] = useState(false)
 
-  async function changeIsBackgroundDark(value: boolean) {
+  const changeIsBackgroundDark = useCallback(async (value: boolean) => {
     setIsBackgroundDark(value)
-  }
+  }, [])
 
   return (
     <SiteContext.Provider

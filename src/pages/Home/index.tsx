@@ -1,5 +1,6 @@
-import { useContext, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useContextSelector } from 'use-context-selector'
 import { GithubContext } from '../../contexts/GithubContext'
 import { SiteContext } from '../../contexts/SiteContext'
 import { PostCard } from './components/PostCard'
@@ -9,8 +10,11 @@ import { HomeContainer, PostsContainer } from './styles'
 
 export function Home() {
   const navigator = useNavigate()
-  const { issues } = useContext(GithubContext)
-  const { changeIsBackgroundDark } = useContext(SiteContext)
+  const issues = useContextSelector(GithubContext, (state) => state.issues)
+  const changeIsBackgroundDark = useContextSelector(
+    SiteContext,
+    (state) => state.changeIsBackgroundDark,
+  )
 
   useEffect(() => {
     changeIsBackgroundDark(false)

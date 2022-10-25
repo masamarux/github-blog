@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext } from 'use-context-selector'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import {
   getUser,
   getSearchRepositoryIssues,
@@ -42,7 +43,6 @@ interface UserProps {
 
 interface GithubContextProps {
   user: UserProps
-  repository: string
   issues: IssuesProps
   getUserData: () => void
   resetUserData: () => void
@@ -60,19 +60,18 @@ interface GithubProviderProps {
 export function GithubProvider({ children }: GithubProviderProps) {
   const [user, setUser] = useState<UserProps>({} as UserProps)
   const [issues, setIssues] = useState<IssuesProps>({} as IssuesProps)
-  const [repository, setRepository] = useState('')
 
-  async function getUserData() {
+  const getUserData = useCallback(async () => {
     const userData = await getUser(import.meta.env.VITE_GITHUB_USERNAME)
 
     userData?.data && setUser(userData.data)
-  }
+  }, [])
 
-  async function resetUserData() {
+  const resetUserData = useCallback(async () => {
     setUser({} as UserProps)
-  }
+  }, [])
 
-  async function searchIssues(query: string) {
+  const searchIssues = useCallback(async (query: string) => {
     const issuesSearchedData = await getSearchRepositoryIssues({
       owner: import.meta.env.VITE_GITHUB_USERNAME,
       repo: import.meta.env.VITE_GITHUB_REPO,
@@ -80,18 +79,17 @@ export function GithubProvider({ children }: GithubProviderProps) {
     })
 
     issuesSearchedData?.data && setIssues(issuesSearchedData.data)
-  }
+  }, [])
 
   useEffect(() => {
     getUserData()
     searchIssues('')
-  }, [])
+  }, [getUserData, searchIssues])
 
   return (
     <GithubContext.Provider
       value={{
         user,
-        repository,
         issues,
         getUserData,
         resetUserData,

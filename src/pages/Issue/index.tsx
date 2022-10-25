@@ -1,6 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import rehypeHighlight from 'rehype-highlight'
+import { useContextSelector } from 'use-context-selector'
 
 import { SiteContext } from '../../contexts/SiteContext'
 import { getIssueData, IssueProps } from '../../libs/octokit'
@@ -11,7 +12,10 @@ import { PostContainer, MarkdownContainer } from './styles'
 export function Issue() {
   const { issueId } = useParams()
   const [issue, setIssue] = useState<IssueProps>({} as IssueProps)
-  const { changeIsBackgroundDark } = useContext(SiteContext)
+  const changeIsBackgroundDark = useContextSelector(
+    SiteContext,
+    (state) => state.changeIsBackgroundDark,
+  )
 
   const getIssue = useCallback(async () => {
     if (issueId) {
