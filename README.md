@@ -47,7 +47,7 @@ npm run build
  - Formulário usando **react-hook-forms** com validação da biblioteca **zod**;
  - Rotas com **react-router-dom**;
  - Formatação de datas com **date-fns**;
- - Markdown com **react-markdown** e estilização de code com **rehype-highlight**.
+ - Markdown com **react-markdown** e estilização de code com **react-syntax-highlighter**.
  
 
 ## Possíveis problemas

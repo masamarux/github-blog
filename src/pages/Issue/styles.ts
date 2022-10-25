@@ -34,19 +34,6 @@ export const MarkdownContainer = styled(ReactMarkdown)`
     margin-left: 1rem;
   }
 
-  & > pre {
-    padding: 1rem;
-    background-color: ${(props) => props.theme['dark-blue-700']};
-    border-radius: 2px;
-    gap: 8px;
-  }
-
-  & > p > code {
-    padding: 0 0.25rem;
-    background-color: ${(props) => props.theme['dark-blue-700']};
-    border-radius: 2px;
-  }
-
   code {
     font-family: 'Fira Code', monospace;
 

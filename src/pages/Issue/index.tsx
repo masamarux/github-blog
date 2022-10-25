@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import rehypeHighlight from 'rehype-highlight'
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { dracula as theme } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+
 import { useContextSelector } from 'use-context-selector'
 
 import { SiteContext } from '../../contexts/SiteContext'
@@ -47,26 +49,31 @@ export function Issue() {
         htmlUrl={issue.html_url}
       />
       <MarkdownContainer
-        rehypePlugins={[
-          rehypeHighlight,
-          {
-            settings: {
-              languages: [
-                'javascript',
-                'typescript',
-                'css',
-                'html',
-                'json',
-                'bash',
-                'shell',
-                'jsx',
-                'tsx',
-                'markdown',
-                'mdx',
-              ],
-            },
+        components={{
+          code({ node, inline, className, children, style, ...props }) {
+            const match = /language-(\w+)/.exec(className || '')
+            return !inline && match ? (
+              <SyntaxHighlighter
+                style={theme}
+                language={match[1]}
+                PreTag="div"
+                customStyle={{
+                  ...style,
+                  padding: '1rem',
+                  borderRadius: '2px',
+                  backgroundColor: '#112131',
+                }}
+                {...props}
+              >
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
+            ) : (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            )
           },
-        ]}
+        }}
       >
         {issue.body ? issue.body : ''}
       </MarkdownContainer>
