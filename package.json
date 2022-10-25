@@ -9,17 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
-    "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^2.9.10",
     "@octokit/rest": "^19.0.5",
-    "@octokit/types": "^8.0.0",
     "date-fns": "^2.29.3",
     "isomorphic-fetch": "^3.0.0",
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.38.0",
@@ -32,8 +28,8 @@
     "zod": "^3.19.1"
   },
   "devDependencies": {
+    "@octokit/types": "^8.0.0",
     "@rocketseat/eslint-config": "^1.1.3",
-    "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
