@@ -46,7 +46,28 @@ export function Issue() {
         createdAt={issue.created_at}
         htmlUrl={issue.html_url}
       />
-      <MarkdownContainer rehypePlugins={[rehypeHighlight]}>
+      <MarkdownContainer
+        rehypePlugins={[
+          rehypeHighlight,
+          {
+            settings: {
+              languages: [
+                'javascript',
+                'typescript',
+                'css',
+                'html',
+                'json',
+                'bash',
+                'shell',
+                'jsx',
+                'tsx',
+                'markdown',
+                'mdx',
+              ],
+            },
+          },
+        ]}
+      >
         {issue.body ? issue.body : ''}
       </MarkdownContainer>
     </PostContainer>
