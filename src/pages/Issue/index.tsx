@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula as theme } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import javascript from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript'
 
 import { useContextSelector } from 'use-context-selector'
 
